@@ -60,17 +60,65 @@
             <div class="slide" style="background-image: url('background.png');">
                 <img class="slide-img" src="slide6.png" alt="Slide 6">
             </div>
-            <div class="slide" style="background-image: url('background.png');">
-                <img class="slide-img" src="slide7.png" alt="Slide 7">
+            <div class="slide" style="background-image: url('bggaleri.png');">
+                <img class="slide-img" src="galeri1.png" alt="Slide 7">
             </div>
-            <div class="slide" style="background-image: url('background.png');">
-                <img class="slide-img" src="slide8.png" alt="Slide 8">
+            <div class="slide" style="background-image: url('bggaleri.png');">
+                <img class="slide-img" src="galeri2.png" alt="Slide 8">
             </div>
-            <div class="slide" style="background-image: url('background.png');">
-                <img class="slide-img" src="slide9.png" alt="Slide 9">
+            <div class="slide gift-slide" style="background-image: url('background.png');">
+                <div class="gift-section">
+                    <img class="gift-img" src="slide7-top.png" alt="Wedding Gift">
+                    <div class="gift-accounts">
+                        <p class="account-name">Maya Laelatul Qodria / Mandiri</p>
+                        <div class="account-box">
+                            <span class="account-number">1234567890</span>
+                            <button class="btn-copy" onclick="copyRekening('1234567890', this)">Salin</button>
+                        </div>
+                        
+                        <p class="account-name">Risqi Hidayat / BCA</p>
+                        <div class="account-box">
+                            <span class="account-number">0987654321</span>
+                            <button class="btn-copy" onclick="copyRekening('0987654321', this)">Salin</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="slide" style="background-image: url('background.png');">
-                <img class="slide-img" src="slide10.png" alt="Slide 10">
+            <div class="slide rsvp-slide" style="background-image: url('background.png');">
+                <div class="rsvp-section">
+                    <img class="gift-img" src="slide8-top.png" alt="RSVP">
+                    
+                    <div class="rsvp-container">
+                        <!-- RSVP Stats -->
+                        <div class="rsvp-stats">
+                            <div class="stat-box hadir">
+                                <span class="stat-num" id="count-hadir">0</span>
+                                <span class="stat-label">Hadir</span>
+                            </div>
+                            <div class="stat-box tidak-hadir">
+                                <span class="stat-num" id="count-tidak-hadir">0</span>
+                                <span class="stat-label">Tidak Hadir</span>
+                            </div>
+                        </div>
+
+                        <!-- RSVP Form -->
+                        <form id="rsvp-form" class="rsvp-form">
+                            <input type="text" id="rsvp-nama" placeholder="Nama" required>
+                            <textarea id="rsvp-ucapan" placeholder="Ucapan" rows="3" required></textarea>
+                            <select id="rsvp-kehadiran" required>
+                                <option value="" disabled selected>Konfirmasi Kehadiran</option>
+                                <option value="Hadir">Hadir</option>
+                                <option value="Tidak Hadir">Tidak Hadir</option>
+                            </select>
+                            <button type="submit" class="btn-kirim">Kirim</button>
+                        </form>
+
+                        <!-- Comments List -->
+                        <div class="comments-list" id="comments-list">
+                            <!-- Comments will be injected here via JS -->
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="slide" style="background-image: url('background.png');">
                 <img class="slide-img" src="slide11.png" alt="Slide 11">

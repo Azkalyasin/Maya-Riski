@@ -195,3 +195,131 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+// Global function to copy bank account number
+function copyRekening(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = 'Tersalin!';
+        setTimeout(() => {
+            btn.innerText = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+// ─── RSVP & COMMENTS LOGIC ───────────────────────────────────────
+const rsvpForm = document.getElementById('rsvp-form');
+const commentsList = document.getElementById('comments-list');
+const countHadirEl = document.getElementById('count-hadir');
+const countTidakHadirEl = document.getElementById('count-tidak-hadir');
+
+// Local storage key fallback
+const RSVP_DB_KEY = 'wedding_rsvp_comments';
+
+async function fetchComments() {
+    let comments = [];
+    try {
+        // Try fetching from Vercel Serverless Function
+        const response = await fetch('/api/comments');
+        if (response.ok) {
+            comments = await response.json();
+        } else {
+            throw new Error('API not available');
+        }
+    } catch (error) {
+        // Fallback to localStorage if API is not deployed or failing
+        console.log('Using LocalStorage fallback for comments');
+        comments = JSON.parse(localStorage.getItem(RSVP_DB_KEY)) || [];
+    }
+    return comments;
+}
+
+async function postComment(newComment) {
+    try {
+        const response = await fetch('/api/comments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newComment),
+        });
+        
+        if (!response.ok) throw new Error('API POST failed');
+    } catch (error) {
+        // Fallback to localStorage
+        const comments = JSON.parse(localStorage.getItem(RSVP_DB_KEY)) || [];
+        comments.unshift(newComment); // Add to beginning
+        localStorage.setItem(RSVP_DB_KEY, JSON.stringify(comments));
+    }
+}
+
+function renderComments(comments) {
+    let hadirCount = 0;
+    let tidakHadirCount = 0;
+    
+    commentsList.innerHTML = '';
+    
+    comments.forEach(c => {
+        if (c.kehadiran === 'Hadir') hadirCount++;
+        if (c.kehadiran === 'Tidak Hadir') tidakHadirCount++;
+        
+        const div = document.createElement('div');
+        div.className = 'comment-item';
+        
+        // Icon logic (from screenshot: red X or green check)
+        const icon = c.kehadiran === 'Hadir' ? '✅' : '❌';
+        
+        div.innerHTML = `
+            <div class="comment-header">
+                ${c.nama} <span class="comment-icon">${icon}</span>
+            </div>
+            <div class="comment-text">${c.ucapan}</div>
+            <div class="comment-date">Baru saja</div>
+        `;
+        commentsList.appendChild(div);
+    });
+    
+    countHadirEl.innerText = hadirCount;
+    countTidakHadirEl.innerText = tidakHadirCount;
+}
+
+async function loadAndRenderComments() {
+    if (!commentsList) return;
+    const comments = await fetchComments();
+    renderComments(comments);
+}
+
+if (rsvpForm) {
+    rsvpForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btnKirim = document.querySelector('.btn-kirim');
+        const originalText = btnKirim.innerText;
+        btnKirim.innerText = 'Mengirim...';
+        btnKirim.disabled = true;
+
+        const nama = document.getElementById('rsvp-nama').value;
+        const ucapan = document.getElementById('rsvp-ucapan').value;
+        const kehadiran = document.getElementById('rsvp-kehadiran').value;
+        
+        const newComment = { 
+            nama, 
+            ucapan, 
+            kehadiran, 
+            date: new Date().toISOString() 
+        };
+        
+        await postComment(newComment);
+        
+        rsvpForm.reset();
+        await loadAndRenderComments();
+        
+        btnKirim.innerText = originalText;
+        btnKirim.disabled = false;
+    });
+    
+    // Initial load
+    loadAndRenderComments();
+}
