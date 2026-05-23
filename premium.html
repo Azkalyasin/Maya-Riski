@@ -1,227 +1,102 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Pernikahan | Digital Invitation</title>
+    <title>The Wedding | Digital Invitation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="premium.css">
 </head>
 
 <body>
     <!-- Background Audio -->
-    <audio id="bgAudio" src="music.mp3" loop preload="auto"></audio>
-
-    <!-- Mute Button (Hidden initially) -->
-    <button id="muteBtn" class="mute-btn" style="display: none;">
-        <span id="muteBtnText">🔊 Mute</span>
-    </button>
+    <audio id="bg-audio" src="audio.mp4" loop preload="auto" playsinline webkit-playsinline></audio>
 
     <!-- Star Background Layer -->
-    <div id="starsContainer"></div>
+    <div id="stars-container"></div>
 
-    <!-- Opening Screen -->
+    <!-- Opening Screen (background + button only) -->
     <div class="opening-screen" id="openingScreen">
-        <div class="heart-wrapper">
-            <div class="heart-icon" id="heartIcon"></div>
-        </div>
         <div class="btn-open-wrapper">
             <button class="btn-open" id="openBtn">Open Invitation</button>
         </div>
     </div>
 
-    <!-- Main Invitation Container -->
+    <!-- Heart (independent, fixed at exact screen center, above everything) -->
+    <div class="heart-wrapper" id="heartWrapper">
+        <div class="heart-icon" id="heartIcon"></div>
+    </div>
+
+    <!-- Music Toggle Button -->
+    <button class="music-btn" id="musicBtn" title="Toggle Music">
+        <svg class="music-icon" id="musicIconOn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        <svg class="music-icon hidden" id="musicIconOff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73l5.73 5.73L21 19.73 4.27 3zM18 7h-4V3h-6v6.27l6 6V7h4V3z"/></svg>
+    </button>
+
+    <!-- Main Content Wrapper -->
     <main class="invitation-container">
-        <!-- Slider Container (11 Slides) -->
+        <!-- Slider Background -->
         <div class="slider-container" id="sliderContainer">
-            
-            <!-- Slide 1: Opening -->
-            <div class="slide active" id="slide1" style="background-image: url('bgslide1.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide1.png" class="slide-foreground-img" alt="">
-                <div class="slide-content">
-                    <p class="subtitle">Dengan senang hati mengundang Anda dalam acara</p>
-                    <h1 class="main-title">Pernikahan Kami</h1>
-                    <div class="divider"></div>
-                    <p class="couple-names">Nama Mempelai Pria & Nama Mempelai Wanita</p>
+            <div class="slide active" style="background-image: url('bgslide1.png');">
+                <img class="slide-img" src="slide1.png" alt="Slide 1">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide2.png" alt="Slide 2">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide3.png" alt="Slide 3">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide4.png" alt="Slide 4">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide5.png" alt="Slide 5">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide6.png" alt="Slide 6">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide7.png" alt="Slide 7">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide8.png" alt="Slide 8">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide9.png" alt="Slide 9">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide10.png" alt="Slide 10">
+            </div>
+            <div class="slide" style="background-image: url('background.png');">
+                <img class="slide-img" src="slide11.png" alt="Slide 11">
+            </div>
+            <div class="overlay"></div>
+
+            <!-- Navigation Buttons -->
+            <div class="slider-nav">
+                <a href="https://maps.app.goo.gl/gRQbGzSaCQiBJMMU8" target="_blank" class="maps-btn" id="mapsBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Open Maps
+                </a>
+                <a href="https://www.instagram.com/creative.invitation_id" target="_blank" class="btn-creative" id="creativeBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                    </svg>
+                    <span>creative.invitation_id</span>
+                </a>
+                <div class="nav-arrows">
+                    <button id="prevBtn" class="nav-btn" aria-label="Previous Slide">&#8592;</button>
+                    <button id="nextBtn" class="nav-btn" aria-label="Next Slide">&#8594;</button>
                 </div>
             </div>
-
-            <!-- Slide 2: Couple Introduction -->
-            <div class="slide" id="slide2" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide2.png" class="slide-foreground-img" alt="">
-                <div class="slide-content">
-                    <h2>Mempelai Pria</h2>
-                    <p class="couple-info">Nama Mempelai Pria</p>
-                    <p class="couple-detail">Putra dari Bapak dan Ibu ...</p>
-                    <div class="divider"></div>
-                    <h2>Mempelai Wanita</h2>
-                    <p class="couple-info">Nama Mempelai Wanita</p>
-                    <p class="couple-detail">Putri dari Ibu dan Bapak ...</p>
-                </div>
-            </div>
-
-            <!-- Slide 3: Acara Kami -->
-            <div class="slide" id="slide3" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide3.png" class="slide-foreground-img" alt="">
-                <div class="slide-content glass-card">
-                    <h2 class="section-title">Acara Kami</h2>
-                    <div class="event-box">
-                        <h3>📍 Lokasi</h3>
-                        <p>Grand Hotel Prestige<br>Jl. Sudirman No. 123<br>Jakarta Selatan</p>
-                    </div>
-                    <div class="event-box">
-                        <h3>📅 Waktu</h3>
-                        <p>Sabtu, 1 Januari 2025<br>Jam 10.00 - 22.00 WIB<br>Resepsi: 12.00 WIB</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 4: Timeline -->
-            <div class="slide" id="slide4" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide4.png" class="slide-foreground-img" alt="">
-                <div class="slide-content glass-card">
-                    <h2 class="section-title">Jadwal Acara</h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot">1</div>
-                            <p><strong>08:00</strong> - Tamu Mulai Tiba</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot">2</div>
-                            <p><strong>10:00</strong> - Akad Nikah</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot">3</div>
-                            <p><strong>12:00</strong> - Resepsi Dimulai</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot">4</div>
-                            <p><strong>22:00</strong> - Penutupan</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 5: Protokol Kesehatan -->
-            <div class="slide" id="slide5" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide5.png" class="slide-foreground-img" alt="">
-                <div class="slide-content glass-card">
-                    <h2 class="section-title">Informasi Penting</h2>
-                    <div class="info-box">
-                        <h3>✓ Protokol Kesehatan</h3>
-                        <ul>
-                            <li>📋 Silakan pakai masker jika merasa perlu</li>
-                            <li>💧 Hand sanitizer tersedia</li>
-                            <li>🚗 Parkir gratis tersedia</li>
-                        </ul>
-                    </div>
-                    <div class="info-box">
-                        <h3>💌 RSVP</h3>
-                        <p>Mohon konfirmasi sebelum 25 Desember 2024<br>
-                        <strong>WhatsApp:</strong> +62 812-3456-7890</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 6: Galeri -->
-            <div class="slide" id="slide6" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide6.png" class="slide-foreground-img" alt="">
-                <div class="slide-content">
-                    <h2 class="section-title">Galeri Kami</h2>
-                    <div class="gallery-grid">
-                        <div class="gallery-item" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-                        <div class="gallery-item" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
-                        <div class="gallery-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-                        <div class="gallery-item" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 7: Perjalanan Cinta -->
-            <div class="slide" id="slide7" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide7.png" class="slide-foreground-img" alt="">
-                <div class="slide-content glass-card">
-                    <h2 class="section-title">Perjalanan Cinta Kami</h2>
-                    <div class="story-box">
-                        <h4>2019 - Awal Pertemuan</h4>
-                        <p>Kami bertemu di event khusus yang mengubah hidup kami selamanya.</p>
-                    </div>
-                    <div class="story-box">
-                        <h4>2022 - Cinta Tumbuh</h4>
-                        <p>Seiring waktu, perasaan kami semakin dalam dan bermakna.</p>
-                    </div>
-                    <div class="story-box">
-                        <h4>2024 - Lamaran</h4>
-                        <p>Dia melamar dengan cara yang paling istimewa dan romantic.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 8: Ucapan & Doa -->
-            <div class="slide" id="slide8" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide8.png" class="slide-foreground-img" alt="">
-                <div class="slide-content glass-card">
-                    <h2 class="section-title">Ucapan & Doa</h2>
-                    <p style="font-style: italic; font-size: 1.1rem; line-height: 1.8;">
-                        "Semoga pernikahan kami menjadi awal yang indah dari sebuah cerita panjang 
-                        yang penuh dengan cinta, pengertian, dan kebahagiaan."
-                    </p>
-                    <div class="divider"></div>
-                    <p>Terima kasih atas doa dan dukungan Anda</p>
-                </div>
-            </div>
-
-            <!-- Slide 9: Gift Registry -->
-            <div class="slide" id="slide9" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide9.png" class="slide-foreground-img" alt="">
-                <div class="slide-content glass-card">
-                    <h2 class="section-title">Hadiah Pernikahan</h2>
-                    <p>Kehadiran Anda adalah hadiah terbesar bagi kami.</p>
-                    <p style="margin-top: 1rem;">Jika ingin memberikan hadiah, Anda dapat mentransfer ke:</p>
-                    <div class="gift-box">
-                        <p><strong>Nama Pengantin</strong><br>Bank: BCA<br>Nomor Rekening: 123 456 789</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 10: Photo Gallery Slide -->
-            <div class="slide" id="slide10" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide10.png" class="slide-foreground-img" alt="">
-                <div class="slide-content">
-                    <h2 class="section-title">Momen Spesial Kami</h2>
-                    <div class="large-photo" style="background: linear-gradient(135deg, #d4a574 0%, #8b4513 100%); height: 300px; border-radius: 15px; margin-top: 2rem;"></div>
-                </div>
-            </div>
-
-            <!-- Slide 11: Penutup -->
-            <div class="slide" id="slide11" style="background-image: url('background.png');">
-                <div class="slide-overlay"></div>
-                <img src="slide11.png" class="slide-foreground-img" alt="">
-                <div class="slide-content">
-                    <h2 class="main-title" style="font-size: 2.2rem;">Terima Kasih</h2>
-                    <p class="subtitle">Terima kasih telah menjadi bagian dari perjalanan hidup kami</p>
-                    <div class="divider"></div>
-                    <p class="couple-names">Nama Mempelai Pria & Nama Mempelai Wanita</p>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Kami tunggu kehadiran Anda 💕</p>
-                </div>
-            </div>
-
         </div>
+
+        <!-- Konten dihapus agar hanya menampilkan slider dan bintang -->
     </main>
 
     <script src="premium.js"></script>
