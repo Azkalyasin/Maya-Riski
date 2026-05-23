@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const index = Array.from(slides).indexOf(entry.target);
                 if (index !== -1) {
                     currentSlide = index;
-                    
+
                     // Toggle active class
                     slides.forEach((slide, i) => {
                         if (i === index) {
@@ -214,22 +214,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const diff = targetDate - now;
 
         if (diff <= 0) {
-            document.getElementById('cd-days').innerText    = '00';
-            document.getElementById('cd-hours').innerText   = '00';
+            document.getElementById('cd-days').innerText = '00';
+            document.getElementById('cd-hours').innerText = '00';
             document.getElementById('cd-minutes').innerText = '00';
             document.getElementById('cd-seconds').innerText = '00';
             return;
         }
 
-        const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         const pad = n => String(n).padStart(2, '0');
 
-        document.getElementById('cd-days').innerText    = pad(days);
-        document.getElementById('cd-hours').innerText   = pad(hours);
+        document.getElementById('cd-days').innerText = pad(days);
+        document.getElementById('cd-hours').innerText = pad(hours);
         document.getElementById('cd-minutes').innerText = pad(minutes);
         document.getElementById('cd-seconds').innerText = pad(seconds);
     }
@@ -287,7 +287,7 @@ async function postComment(newComment) {
             },
             body: JSON.stringify(newComment),
         });
-        
+
         if (!response.ok) throw new Error('API POST failed');
     } catch (error) {
         // Fallback to localStorage
@@ -300,19 +300,19 @@ async function postComment(newComment) {
 function renderComments(comments) {
     let hadirCount = 0;
     let tidakHadirCount = 0;
-    
+
     commentsList.innerHTML = '';
-    
+
     comments.forEach(c => {
         if (c.kehadiran === 'Hadir') hadirCount++;
         if (c.kehadiran === 'Tidak Hadir') tidakHadirCount++;
-        
+
         const div = document.createElement('div');
         div.className = 'comment-item';
-        
+
         // Icon logic (from screenshot: red X or green check)
         const icon = c.kehadiran === 'Hadir' ? '✅' : '❌';
-        
+
         div.innerHTML = `
             <div class="comment-header">
                 ${c.nama} <span class="comment-icon">${icon}</span>
@@ -322,7 +322,7 @@ function renderComments(comments) {
         `;
         commentsList.appendChild(div);
     });
-    
+
     countHadirEl.innerText = hadirCount;
     countTidakHadirEl.innerText = tidakHadirCount;
 }
@@ -336,7 +336,7 @@ async function loadAndRenderComments() {
 if (rsvpForm) {
     rsvpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const btnKirim = document.querySelector('.btn-kirim');
         const originalText = btnKirim.innerText;
         btnKirim.innerText = 'Mengirim...';
@@ -345,23 +345,23 @@ if (rsvpForm) {
         const nama = document.getElementById('rsvp-nama').value;
         const ucapan = document.getElementById('rsvp-ucapan').value;
         const kehadiran = document.getElementById('rsvp-kehadiran').value;
-        
-        const newComment = { 
-            nama, 
-            ucapan, 
-            kehadiran, 
-            date: new Date().toISOString() 
+
+        const newComment = {
+            nama,
+            ucapan,
+            kehadiran,
+            date: new Date().toISOString()
         };
-        
+
         await postComment(newComment);
-        
+
         rsvpForm.reset();
         await loadAndRenderComments();
-        
+
         btnKirim.innerText = originalText;
         btnKirim.disabled = false;
     });
-    
+
     // Initial load
     loadAndRenderComments();
 }

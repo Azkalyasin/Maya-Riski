@@ -244,7 +244,7 @@ body {
 .countdown-wrapper {
     position: absolute;
     bottom: calc(60% + 4px);
-    left: 17%;
+    left: 14%;
     transform: translateX(-50%);
     z-index: 10;
     text-align: center;
@@ -453,18 +453,18 @@ body {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.85);
+    background: #6D1427;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1.5px solid var(--sage-green);
-    color: var(--sage-green);
+    border: 1.5px solid var(--gold);
+    color: var(--white);
     cursor: pointer;
     display: none;
     /* Hidden until invitation opens */
     align-items: center;
     justify-content: center;
     transition: all 0.28s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     /* Spinning animation for music note */
     animation: none;
 }
@@ -474,10 +474,10 @@ body {
 }
 
 .music-btn:hover {
-    background: var(--sage-green);
-    color: white;
+    background: #500f1c;
+    color: var(--gold);
     transform: scale(1.1);
-    box-shadow: 0 4px 16px rgba(178, 172, 136, 0.4);
+    box-shadow: 0 4px 16px rgba(109, 20, 39, 0.4);
 }
 
 .music-icon {
@@ -598,7 +598,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 5;
-    background-color: #FEFBE6;
+    background-color: #6D1427;
     /* Sped up 30%: was 1.5s → 1.05s */
     transition: opacity 1.05s ease;
 }
@@ -619,13 +619,13 @@ body {
 .heart-icon {
     width: 100%;
     height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23D4AF37" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23FFFFFF" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg>');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     /* Sped up 30%: heart expand was 3.5s → 2.45s, opacity was 2.5s → 1.75s */
     transition: transform 2.45s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.75s ease 0.35s;
-    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
 }
 
 .heart-icon.expand {
@@ -645,9 +645,9 @@ body {
 
 .btn-open {
     padding: 1rem 3rem;
-    background: transparent;
-    border: 1.5px solid var(--sage-green);
-    color: var(--sage-green);
+    background: #6D1427;
+    border: 2px solid var(--gold);
+    color: var(--white);
     font-family: var(--font-body);
     font-weight: 600;
     font-size: 1.1rem;
@@ -658,12 +658,13 @@ body {
     transition: all 0.4s ease, opacity 0.5s ease, transform 0.5s ease;
     opacity: 1;
     z-index: 10;
+    box-shadow: 0 4px 15px rgba(109, 20, 39, 0.4);
 }
 
 .btn-open:hover {
-    background: var(--sage-green);
-    color: var(--white);
-    box-shadow: 0 0 20px rgba(178, 172, 136, 0.4);
+    background: #500f1c;
+    color: var(--gold);
+    box-shadow: 0 0 25px rgba(109, 20, 39, 0.5);
     transform: translateY(-3px);
 }
 
