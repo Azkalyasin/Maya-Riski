@@ -1,7 +1,11 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
+
+// Initialize Redis client using Upstash env variables.
+// Vercel sets these automatically when you connect Upstash Redis integration.
+const redis = Redis.fromEnv();
 
 export default async function handler(req, res) {
-  // Allow CORS if accessed directly, though usually not needed if hosted on same domain
+  // Allow CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -20,7 +24,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       // Fetch list of comments
-      const comments = await kv.lrange(COMMENTS_KEY, 0, -1);
+      const comments = await redis.lrange(COMMENTS_KEY, 0, -1);
       return res.status(200).json(comments || []);
     } catch (error) {
       console.error(error);
@@ -44,7 +48,7 @@ export default async function handler(req, res) {
       };
 
       // Add new comment to the list
-      await kv.lpush(COMMENTS_KEY, newComment);
+      await redis.lpush(COMMENTS_KEY, newComment);
       
       return res.status(200).json(newComment);
     } catch (error) {

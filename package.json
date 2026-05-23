@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Digital Invitation with RSVP deployed to Vercel",
   "main": "premium.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@vercel/kv": "^3.0.0"
+    "@upstash/redis": "^1.38.0"
   }
 }
