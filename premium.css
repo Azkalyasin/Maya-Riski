@@ -169,13 +169,13 @@ body {
     animation: fadeInEase 1.6s ease forwards;
 }
 
-/* Rotate on Y-axis (middle axis) animation for slide1 (surat) */
+/* 2D rotate around center axis for slide1 (surat) */
 @keyframes gentleSwing {
-    0%   { transform: perspective(800px) rotateY(0deg); }
-    25%  { transform: perspective(800px) rotateY(8deg); }
-    50%  { transform: perspective(800px) rotateY(0deg); }
-    75%  { transform: perspective(800px) rotateY(-8deg); }
-    100% { transform: perspective(800px) rotateY(0deg); }
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(20deg); }
+    50%  { transform: rotate(0deg); }
+    75%  { transform: rotate(-20deg); }
+    100% { transform: rotate(0deg); }
 }
 
 .swing-img {
