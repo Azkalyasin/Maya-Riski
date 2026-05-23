@@ -209,7 +209,7 @@ body {
 .maps-overlay-btn {
     position: absolute;
     top: 60%;
-    left: 40%;
+    left: 33%;
     transform: translate(-50%, -50%);
     display: inline-flex;
     align-items: center;
