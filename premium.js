@@ -205,6 +205,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+// ─── COUNTDOWN TIMER ─────────────────────────────────────────
+(function startCountdown() {
+    const targetDate = new Date('2026-06-10T00:00:00+07:00');
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('cd-days').innerText    = '00';
+            document.getElementById('cd-hours').innerText   = '00';
+            document.getElementById('cd-minutes').innerText = '00';
+            document.getElementById('cd-seconds').innerText = '00';
+            return;
+        }
+
+        const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const pad = n => String(n).padStart(2, '0');
+
+        document.getElementById('cd-days').innerText    = pad(days);
+        document.getElementById('cd-hours').innerText   = pad(hours);
+        document.getElementById('cd-minutes').innerText = pad(minutes);
+        document.getElementById('cd-seconds').innerText = pad(seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+})();
+
 // Global function to copy bank account number
 function copyRekening(text, btn) {
     navigator.clipboard.writeText(text).then(() => {

@@ -171,11 +171,25 @@ body {
 
 /* 2D rotate around center axis for slide1 (surat) */
 @keyframes gentleSwing {
-    0%   { transform: rotate(0deg); }
-    25%  { transform: rotate(20deg); }
-    50%  { transform: rotate(0deg); }
-    75%  { transform: rotate(-20deg); }
-    100% { transform: rotate(0deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(20deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(20deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .swing-img {
@@ -185,6 +199,101 @@ body {
 /* When animated class is added to swing-img, run fade then swing continuously */
 .swing-img.animated {
     animation: fadeInEase 1.6s ease forwards, gentleSwing 3s ease-in-out 1.6s infinite;
+}
+
+/* ─── Maps Overlay Button (Slide 5) ───────────────────────── */
+.slide-with-btn {
+    position: relative;
+}
+
+.maps-overlay-btn {
+    position: absolute;
+    bottom: calc(50% - 4px); /* centered vertically, nudged down 4px */
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.65rem 1.8rem;
+    background: #7C4F2A;
+    color: white;
+    font-family: var(--font-body);
+    font-weight: bold;
+    font-size: clamp(0.8rem, 3vw, 0.95rem);
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    z-index: 10;
+    transition: background 0.25s, transform 0.25s;
+    white-space: nowrap;
+}
+
+.maps-overlay-btn:hover {
+    background: #5C3920;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* ─── Countdown Timer (Last Slide) ───────────────────────── */
+.slide-countdown-slide {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+}
+
+.countdown-wrapper {
+    position: absolute;
+    bottom: calc(50% + 4px); /* Above center, raised 4px from bottom of countdown */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.countdown-timer {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 14px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 52px;
+}
+
+.cd-num {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+}
+
+.cd-label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.countdown-sep {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    font-weight: 700;
+    color: var(--gold);
+    align-self: center;
+    padding-bottom: 14px;
+    opacity: 0.7;
 }
 
 .overlay {
