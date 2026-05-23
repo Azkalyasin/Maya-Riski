@@ -152,7 +152,7 @@ body {
 @keyframes fadeInEase {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(24px);
     }
     to {
         opacity: 1;
@@ -165,7 +165,25 @@ body {
 }
 
 .fade-content.animated {
-    animation: fadeInEase 0.9s ease forwards;
+    animation: fadeInEase 1.6s ease forwards;
+}
+
+/* Swing / gentle rotate animation for slide1 (surat) */
+@keyframes gentleSwing {
+    0%   { transform: translateY(0) rotate(-1.5deg); }
+    25%  { transform: translateY(-6px) rotate(0deg); }
+    50%  { transform: translateY(0) rotate(1.5deg); }
+    75%  { transform: translateY(-4px) rotate(0deg); }
+    100% { transform: translateY(0) rotate(-1.5deg); }
+}
+
+.swing-img {
+    transform-origin: center bottom;
+}
+
+/* When animated class is added to swing-img, run fade then swing continuously */
+.swing-img.animated {
+    animation: fadeInEase 1.6s ease forwards, gentleSwing 4s ease-in-out 1.6s infinite;
 }
 
 .overlay {
