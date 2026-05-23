@@ -2,7 +2,6 @@
   "name": "maya-riski-invitation",
   "version": "1.0.0",
   "description": "Digital Invitation with RSVP deployed to Vercel",
-  "main": "premium.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
