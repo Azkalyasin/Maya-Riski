@@ -208,8 +208,8 @@ body {
 
 .maps-overlay-btn {
     position: absolute;
-    top: 65%;
-    left: 50%;
+    top: 60%;
+    left: 40%;
     transform: translate(-50%, -50%);
     display: inline-flex;
     align-items: center;
