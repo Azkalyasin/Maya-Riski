@@ -208,9 +208,9 @@ body {
 
 .maps-overlay-btn {
     position: absolute;
-    bottom: calc(50% - 4px); /* centered vertically, nudged down 4px */
+    top: 65%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -231,7 +231,7 @@ body {
 
 .maps-overlay-btn:hover {
     background: #5C3920;
-    transform: translateX(-50%) translateY(-2px);
+    transform: translate(-50%, calc(-50% - 2px));
 }
 
 /* ─── Countdown Timer (Last Slide) ───────────────────────── */
