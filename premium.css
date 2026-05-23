@@ -88,8 +88,10 @@ body {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 
     /* Portal Mask */
     -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg>');
@@ -106,7 +108,8 @@ body {
 }
 
 .slider-container::-webkit-scrollbar {
-    display: none; /* Hide Chrome, Safari, Opera scrollbar */
+    display: none;
+    /* Hide Chrome, Safari, Opera scrollbar */
 }
 
 .slider-container.open {
@@ -122,12 +125,14 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    background-size: cover; /* Background fills screen completely */
+    background-size: cover;
+    /* Background fills screen completely */
     background-repeat: no-repeat;
     background-position: center;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    opacity: 1; /* Always fully visible to allow scrolling flow */
+    opacity: 1;
+    /* Always fully visible to allow scrolling flow */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,9 +142,30 @@ body {
 .slide-img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Content fits inside cleanly without distortion */
+    object-fit: contain;
+    /* Content fits inside cleanly without distortion */
     pointer-events: none;
     z-index: 5;
+}
+
+/* Fade-in animation for slide content */
+@keyframes fadeInEase {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-content {
+    opacity: 0;
+}
+
+.fade-content.animated {
+    animation: fadeInEase 0.9s ease forwards;
 }
 
 .overlay {
@@ -561,8 +587,10 @@ body {
 
 /* Wedding Gift Section */
 .gift-slide {
-    align-items: flex-start; /* To push content up */
-    padding-top: 10vh; /* Adjust how much to push up */
+    align-items: flex-start;
+    /* To push content up */
+    padding-top: 10vh;
+    /* Adjust how much to push up */
 }
 
 .gift-section {
@@ -599,7 +627,8 @@ body {
 }
 
 .account-box {
-    background: #6D1427; /* Dark Red / Maroon */
+    background: #6D1427;
+    /* Dark Red / Maroon */
     border: 2px solid var(--gold);
     color: var(--white);
     border-radius: 30px;
@@ -650,7 +679,8 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 90vh; /* Make room for scrolling */
+    height: 90vh;
+    /* Make room for scrolling */
     z-index: 10;
 }
 
@@ -660,7 +690,7 @@ body {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -673,6 +703,7 @@ body {
 .rsvp-container::-webkit-scrollbar {
     width: 6px;
 }
+
 .rsvp-container::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 3px;
@@ -690,7 +721,7 @@ body {
     padding: 15px 10px;
     border-radius: 10px;
     font-family: var(--font-body);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .stat-box.hadir {
@@ -744,7 +775,8 @@ body {
 }
 
 .btn-kirim {
-    background: #55728a; /* Soft blue from screenshot */
+    background: #55728a;
+    /* Soft blue from screenshot */
     color: white;
     border: none;
     padding: 14px;

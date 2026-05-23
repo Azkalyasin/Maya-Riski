@@ -102,6 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Update special buttons
                     showSpecialButtonForSlide(index);
+
+                    // ─── Replay fade-in animation ──────────────────────
+                    const fadeEls = entry.target.querySelectorAll('.fade-content');
+                    fadeEls.forEach(el => {
+                        // Remove class, force reflow, add back to replay animation
+                        el.classList.remove('animated');
+                        void el.offsetWidth; // trigger reflow
+                        el.classList.add('animated');
+                    });
                 }
             }
         });
