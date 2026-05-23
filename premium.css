@@ -30,8 +30,18 @@ body {
     background: linear-gradient(135deg, #0A192F 0%, #1a2a4a 100%);
     color: var(--cream);
     font-family: var(--font-body);
-    overflow: hidden;
-    height: 100vh;
+    overflow: hidden; /* Prevent scrolling before invitation is opened */
+    min-height: 100vh;
+}
+
+body.opened {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.invitation-container {
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,18 +92,14 @@ body {
 
 .invitation-container {
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 100vh;
+    display: block;
 }
 
 .slider-container {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     z-index: 10;
     opacity: 0;
     pointer-events: none;
@@ -124,22 +130,25 @@ body {
 /* ═══════════════════════════════════════════════════════════════════════ */
 
 .slide {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transform: translateY(40px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1;
+    overflow: hidden;
 }
 
-.slide.active {
+.slide.visible {
     opacity: 1;
-    z-index: 5;
+    transform: translateY(0);
 }
 
 .slide-overlay {
@@ -148,13 +157,34 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(10, 25, 47, 0.7) 0%, rgba(26, 42, 74, 0.7) 100%);
+    background: linear-gradient(135deg, rgba(10, 25, 47, 0.5) 0%, rgba(26, 42, 74, 0.5) 100%);
     z-index: 1;
+}
+
+.slide-foreground-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.05);
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.4; /* Blends nicely with background and text sits cleanly on top */
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide.visible .slide-foreground-img {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .slide-content {
     position: relative;
-    z-index: 2;
+    z-index: 5; /* Sit on top of the slide-foreground-img (z-index 2) */
     width: 90%;
     max-width: 600px;
     text-align: center;
@@ -400,16 +430,16 @@ body {
 /* ═══════════════════════════════════════════════════════════════════════ */
 
 .opening-screen {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 5;
+    z-index: 9999;
     background: linear-gradient(135deg, #FEFBE6 0%, #fff9e6 100%);
     transition: opacity 1.5s ease;
 }

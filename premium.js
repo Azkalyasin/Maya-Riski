@@ -1,238 +1,264 @@
-/* ═══════════════════════════════════════════════════════════════════════ */
-/* PREMIUM WEDDING INVITATION - JAVASCRIPT                               */
-/* ═══════════════════════════════════════════════════════════════════════ */
-
 document.addEventListener('DOMContentLoaded', () => {
-    // ═══════════════════════════════════════════════════════════════════
-    // 1. PARTICLE STARS GENERATION
-    // ═══════════════════════════════════════════════════════════════════
 
-    const starsContainer = document.getElementById('starsContainer');
+    // ─── CONSTANTS ────────────────────────────────────────────────
+    // To adjust slide transition speed, change SLIDE_DURATION (ms).
+    // The CSS transition values (opacity, transform, filter) also need to match.
+    const SLIDE_DURATION = 6000; // 6 seconds per slide
+    const TOTAL_SLIDES = 7;      // Number of slides (slide1 → slide7)
+    const MAPS_SLIDE_INDEX = 4;  // 0-based index of slide 5
+
+    // ─── ELEMENTS ─────────────────────────────────────────────────
+    const starsContainerEl = document.getElementById('stars-container');
+    const openBtn = document.getElementById('openBtn');
+    const heartIcon = document.getElementById('heartIcon');
+    const heartWrapper = document.getElementById('heartWrapper');
+    const sliderContainer = document.getElementById('sliderContainer');
+    const bgAudio = document.getElementById('bg-audio');
+    const openingScreen = document.getElementById('openingScreen');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const mapsBtn = document.getElementById('mapsBtn');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicIconOn = document.getElementById('musicIconOn');
+    const musicIconOff = document.getElementById('musicIconOff');
+    const creativeBtn = document.getElementById('creativeBtn');
+
+    // ─── STARS ────────────────────────────────────────────────────
     const starCount = 150;
-
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
         const size = Math.random() * 2 + 1;
-        const duration = Math.random() * 3 + 2;
-        const delay = Math.random() * 5;
-
-        star.style.left = `${x}%`;
-        star.style.top = `${y}%`;
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
-        star.style.setProperty('--duration', `${duration}s`);
-        star.style.animationDelay = `${delay}s`;
-
-        starsContainer.appendChild(star);
+        star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        starsContainerEl.appendChild(star);
     }
 
-    // ═══════════════════════════════════════════════════════════════════
-    // 2. SLIDE NAVIGATION LOGIC
-    // ═══════════════════════════════════════════════════════════════════
-
+    // ─── SLIDE TRANSITION ─────────────────────────────────────────
+    // SLIDE_MOVE_MS  = duration of left/right slide movement
+    // SLIDE_FADE_MS  = duration of content fade-in AFTER slide lands
+    const SLIDE_MOVE_MS = 900;   // ← adjust to speed up/slow down slide movement
+    const SLIDE_FADE_MS = 700;   // ← adjust to speed up/slow down fade-in
+    let isAnimating = false;
     const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
     let currentSlide = 0;
-    const autoSlideInterval = 8000; // 8 seconds
-    let slideTimer;
+    let isPlaying = true; // audio state
 
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const slideIndicator = document.getElementById('slideIndicator');
-
-    function updateSlide(newIndex) {
-        // Validasi
-        if (newIndex < 0 || newIndex >= totalSlides) return;
-
-        // Remove active dari slide sebelumnya
-        slides[currentSlide].classList.remove('active');
-
-        // Set slide baru
-        currentSlide = newIndex;
-        slides[currentSlide].classList.add('active');
-
-        // Update indicator
-        slideIndicator.textContent = `${currentSlide + 1} / ${totalSlides}`;
-
-        // Update button states
-        updateButtonStates();
-
-        // Reset auto-slide timer
-        resetAutoSlide();
-    }
-
-    function nextSlide() {
-        if (currentSlide < totalSlides - 1) {
-            updateSlide(currentSlide + 1);
-        }
-    }
-
-    function prevSlide() {
-        if (currentSlide > 0) {
-            updateSlide(currentSlide - 1);
-        }
-    }
-
-    function updateButtonStates() {
-        // Disable next button jika di slide terakhir
-        if (currentSlide === totalSlides - 1) {
-            nextBtn.disabled = true;
-            nextBtn.style.opacity = '0.3';
-        } else {
-            nextBtn.disabled = false;
-            nextBtn.style.opacity = '1';
-        }
-
-        // Disable prev button jika di slide pertama
+    function updateNavButtons() {
+        // Only handles prev/next arrow visibility
         if (currentSlide === 0) {
-            prevBtn.disabled = true;
-            prevBtn.style.opacity = '0.3';
+            prevBtn.classList.add('hidden');
         } else {
-            prevBtn.disabled = false;
-            prevBtn.style.opacity = '1';
+            prevBtn.classList.remove('hidden');
         }
-    }
 
-    function autoSlide() {
-        if (currentSlide < totalSlides - 1) {
-            nextSlide();
+        if (currentSlide === TOTAL_SLIDES - 1) {
+            nextBtn.classList.add('hidden');
         } else {
-            // Loop kembali ke awal (optional)
-            updateSlide(0);
+            nextBtn.classList.remove('hidden');
         }
     }
 
-    function resetAutoSlide() {
-        clearInterval(slideTimer);
-        slideTimer = setInterval(autoSlide, autoSlideInterval);
+    // ── Hide special buttons instantly (when leaving their slide) ──
+    function hideSpecialButtons() {
+        // maps-btn: instant hide via inline style (overrides CSS class)
+        mapsBtn.style.transition = 'none';
+        mapsBtn.style.opacity = '0';
+        mapsBtn.style.pointerEvents = 'none';
+
+        // creative-btn: back to display:none instantly
+        creativeBtn.style.transition = 'none';
+        creativeBtn.style.opacity = '0';
+        creativeBtn.style.display = 'none';
     }
 
-    // Event listeners
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    // ── Show special button for a given slide, synchronized with Phase 2 ──
+    function showSpecialButtonForSlide(index) {
+        const fadeTransition = `opacity ${SLIDE_FADE_MS}ms ease-in-out`;
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') nextSlide();
-        if (e.key === 'ArrowLeft') prevSlide();
-    });
+        if (index === MAPS_SLIDE_INDEX) {
+            // Inline styles throughout — CSS class opacity is overridden by inline,
+            // so we must set style.opacity='1' directly to trigger the transition.
+            mapsBtn.style.transition = 'none';
+            mapsBtn.style.opacity = '0';
+            mapsBtn.style.pointerEvents = 'none';
+            mapsBtn.getBoundingClientRect(); // force reflow
+            mapsBtn.style.transition = fadeTransition;
+            mapsBtn.style.opacity = '1';         // ← key fix: inline wins over class
+            mapsBtn.style.pointerEvents = 'auto';
+            mapsBtn.classList.add('show');        // keeps transform:translateY(0) from CSS
+        }
 
-    // Touch/Swipe navigation
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    document.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, false);
-
-    document.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, false);
-
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                nextSlide(); // Swipe left = next
-            } else {
-                prevSlide(); // Swipe right = prev
-            }
+        if (index === TOTAL_SLIDES - 1) {
+            // creative uses display:none — prep it, then fade in
+            creativeBtn.style.transition = 'none';
+            creativeBtn.style.display = 'inline-flex';
+            creativeBtn.style.opacity = '0';
+            creativeBtn.getBoundingClientRect(); // force reflow
+            creativeBtn.style.transition = fadeTransition;
+            creativeBtn.style.opacity = '1';
         }
     }
 
-    // ═══════════════════════════════════════════════════════════════════
-    // 3. AUDIO & MUTE CONTROL
-    // ═══════════════════════════════════════════════════════════════════
+    function goToSlide(index, direction) {
+        if (index === currentSlide || isAnimating) return;
+        isAnimating = true;
 
-    const bgAudio = document.getElementById('bgAudio');
-    const muteBtn = document.getElementById('muteBtn');
-    const muteBtnText = document.getElementById('muteBtnText');
-    let isMuted = false;
+        const outgoing = slides[currentSlide];
+        const incoming = slides[index];
 
-    function playAudio() {
-        if (bgAudio) {
-            bgAudio.play().catch(e => {
-                console.log('Audio play failed:', e);
-            });
-            muteBtn.style.display = 'inline-block';
-        }
+        const inStart = direction === 'next' ? '100%' : '-100%';
+        const outEnd = direction === 'next' ? '-25%' : '25%';
+
+        // ── Hide special buttons immediately when leaving their slide ──
+        hideSpecialButtons();
+
+        // ── PHASE 1 SETUP: snap incoming off-screen, content invisible ──
+        incoming.style.transition = 'none';
+        incoming.style.transform = `translateX(${inStart})`;
+        incoming.style.opacity = '0';
+        incoming.getBoundingClientRect(); // force reflow
+
+        // ── PHASE 1: slide movement ───────────────────────────────────
+        const moveEase = `cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+        incoming.style.transition = `transform ${SLIDE_MOVE_MS}ms ${moveEase}`;
+        outgoing.style.transition = `transform ${SLIDE_MOVE_MS}ms ${moveEase}, opacity ${Math.round(SLIDE_MOVE_MS * 0.55)}ms ease`;
+
+        incoming.style.transform = 'translateX(0)';
+        incoming.classList.add('active');
+        outgoing.style.transform = `translateX(${outEnd})`;
+        outgoing.style.opacity = '0';
+
+        // ── PHASE 2: fade-in content + special buttons simultaneously ──
+        setTimeout(() => {
+            incoming.style.transition = `opacity ${SLIDE_FADE_MS}ms ease-in-out`;
+            incoming.style.opacity = '1';
+
+            // Fade in the special button for this slide (same timing as content)
+            showSpecialButtonForSlide(index);
+
+            // ── CLEANUP ───────────────────────────────────────────────
+            setTimeout(() => {
+                outgoing.classList.remove('active');
+                [outgoing, incoming].forEach(el => {
+                    el.style.transition = '';
+                    el.style.transform = '';
+                    el.style.opacity = '';
+                });
+                // Reset button transition overrides
+                mapsBtn.style.transition = '';
+                creativeBtn.style.transition = '';
+                isAnimating = false;
+            }, SLIDE_FADE_MS + 50);
+
+        }, SLIDE_MOVE_MS + 10);
+
+        currentSlide = index;
+        updateNavButtons();
     }
 
-    function toggleMute() {
-        if (isMuted) {
-            bgAudio.play();
-            muteBtn.style.background = 'rgba(212, 175, 55, 0.9)';
-            muteBtnText.textContent = '🔊 Mute';
-            isMuted = false;
+
+    function goNext() {
+        if (currentSlide < TOTAL_SLIDES - 1) goToSlide(currentSlide + 1, 'next');
+    }
+
+    function goPrev() {
+        if (currentSlide > 0) goToSlide(currentSlide - 1, 'prev');
+    }
+
+
+
+    // ─── MUSIC CONTROL ────────────────────────────────────────────
+    function setMusicState(playing) {
+        isPlaying = playing;
+        if (playing) {
+            bgAudio.play().catch(e => console.log('Audio play failed:', e));
+            musicIconOn.classList.remove('hidden');
+            musicIconOff.classList.add('hidden');
+            musicBtn.classList.add('playing');
         } else {
             bgAudio.pause();
-            muteBtn.style.background = 'rgba(120, 120, 120, 0.9)';
-            muteBtnText.textContent = '🔇 Unmute';
-            isMuted = true;
+            musicIconOn.classList.add('hidden');
+            musicIconOff.classList.remove('hidden');
+            musicBtn.classList.remove('playing');
         }
     }
 
-    if (muteBtn) {
-        muteBtn.addEventListener('click', toggleMute);
-    }
+    musicBtn.addEventListener('click', () => {
+        setMusicState(!isPlaying);
+    });
 
-    // ═══════════════════════════════════════════════════════════════════
-    // 4. OPENING ANIMATION
-    // ═══════════════════════════════════════════════════════════════════
+    // ─── PAUSE ON TAB HIDE / PAGE BLUR ────────────────────────────
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            bgAudio.pause();
+        } else {
+            if (isPlaying) {
+                bgAudio.play().catch(e => console.log('Audio resume failed:', e));
+            }
+        }
+    });
 
-    const openBtn = document.getElementById('openBtn');
-    const heartIcon = document.getElementById('heartIcon');
-    const sliderContainer = document.getElementById('sliderContainer');
-    const openingScreen = document.getElementById('openingScreen');
-    const starsContainerEl = document.getElementById('starsContainer');
+    window.addEventListener('blur', () => {
+        bgAudio.pause();
+    });
 
-    if (openBtn) {
-        openBtn.addEventListener('click', () => {
-            // Play audio
-            playAudio();
+    window.addEventListener('focus', () => {
+        if (isPlaying) {
+            bgAudio.play().catch(e => console.log('Audio focus-resume failed:', e));
+        }
+    });
 
-            // Hide button
-            openBtn.classList.add('hide');
+    // ─── OPENING ANIMATION ────────────────────────────────────────
+    openBtn.addEventListener('click', () => {
+        // iOS FIX: play() MUST be called synchronously inside user interaction,
+        // before any setTimeout, otherwise Safari will block it.
+        const playPromise = bgAudio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(e => console.log('Audio play failed:', e));
+        }
 
-            // Start animations
+        // Hide the open button
+        openBtn.classList.add('hide');
+
+        // Small tick to let repaint happen, then start animations
+        setTimeout(() => {
+            // ─ INSTANT hide opening-screen background ─────────────────────────
+            // No opacity fade — immediately gone so it can NEVER linger over slides.
+            // The heart-wrapper is now a separate fixed element (z-index 25),
+            // so it animates independently regardless of opening-screen visibility.
+            openingScreen.style.display = 'none';
+
+            // ─ Start portal expand ────────────────────────────────────────────
+            if (sliderContainer) {
+                sliderContainer.style.opacity = '1';
+                sliderContainer.classList.add('open');
+            }
+
+            // ─ Heart expands (independent element, z-index 25 above slider) ──
+            if (heartIcon) heartIcon.classList.add('expand');
+            if (starsContainerEl) starsContainerEl.classList.add('show');
+
+            // ─ Wire up nav immediately ────────────────────────────────────────
+            updateNavButtons();
+            nextBtn.addEventListener('click', goNext);
+            prevBtn.addEventListener('click', goPrev);
+
+            // ─ Show music button ──────────────────────────────────────────────
+            musicBtn.classList.add('visible');
+            musicBtn.classList.add('playing');
+
+            // ─ Hide heart-wrapper after its animation fully completes ─────────
+            // heart opacity transition: 1.75s + 0.35s delay = ~2.1s total
             setTimeout(() => {
-                if (sliderContainer) {
-                    sliderContainer.style.opacity = '1';
-                    sliderContainer.classList.add('open');
-                }
-                if (heartIcon) heartIcon.classList.add('expand');
-                if (starsContainerEl) starsContainerEl.classList.add('show');
+                if (heartWrapper) heartWrapper.style.display = 'none';
+            }, 2200);
 
-                // Wait for portal animation
-                setTimeout(() => {
-                    openingScreen.style.opacity = '0';
+        }, 50);
+    });
 
-                    // Start auto-slide
-                    resetAutoSlide();
-                    updateButtonStates();
-
-                    setTimeout(() => {
-                        openingScreen.style.display = 'none';
-                    }, 1500);
-                }, 3000);
-            }, 50);
-        });
-    }
-
-    // ═══════════════════════════════════════════════════════════════════
-    // 5. INITIALIZE
-    // ═══════════════════════════════════════════════════════════════════
-
-    // Set initial button states (sebelum pembukaan)
-    updateButtonStates();
-
-    console.log('✨ Premium Wedding Invitation Ready!');
-    console.log(`Total slides: ${totalSlides}`);
 });
