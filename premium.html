@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan | Digital Invitation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="premium.css">
+</head>
+
+<body>
+    <!-- Background Audio -->
+    <audio id="bgAudio" src="music.mp3" loop preload="auto"></audio>
+
+    <!-- Mute Button (Hidden initially) -->
+    <button id="muteBtn" class="mute-btn" style="display: none;">
+        <span id="muteBtnText">🔊 Mute</span>
+    </button>
+
+    <!-- Star Background Layer -->
+    <div id="starsContainer"></div>
+
+    <!-- Opening Screen -->
+    <div class="opening-screen" id="openingScreen">
+        <div class="heart-wrapper">
+            <div class="heart-icon" id="heartIcon"></div>
+        </div>
+        <div class="btn-open-wrapper">
+            <button class="btn-open" id="openBtn">Open Invitation</button>
+        </div>
+    </div>
+
+    <!-- Main Invitation Container -->
+    <main class="invitation-container">
+        <!-- Slider Container (11 Slides) -->
+        <div class="slider-container" id="sliderContainer">
+            
+            <!-- Slide 1: Opening -->
+            <div class="slide active" id="slide1">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <p class="subtitle">Dengan senang hati mengundang Anda dalam acara</p>
+                    <h1 class="main-title">Pernikahan Kami</h1>
+                    <div class="divider"></div>
+                    <p class="couple-names">Nama Mempelai Pria & Nama Mempelai Wanita</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Couple Introduction -->
+            <div class="slide" id="slide2">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2>Mempelai Pria</h2>
+                    <p class="couple-info">Nama Mempelai Pria</p>
+                    <p class="couple-detail">Putra dari Bapak dan Ibu ...</p>
+                    <div class="divider"></div>
+                    <h2>Mempelai Wanita</h2>
+                    <p class="couple-info">Nama Mempelai Wanita</p>
+                    <p class="couple-detail">Putri dari Ibu dan Bapak ...</p>
+                </div>
+            </div>
+
+            <!-- Slide 3: Acara Kami -->
+            <div class="slide" id="slide3">
+                <div class="slide-overlay"></div>
+                <div class="slide-content glass-card">
+                    <h2 class="section-title">Acara Kami</h2>
+                    <div class="event-box">
+                        <h3>📍 Lokasi</h3>
+                        <p>Grand Hotel Prestige<br>Jl. Sudirman No. 123<br>Jakarta Selatan</p>
+                    </div>
+                    <div class="event-box">
+                        <h3>📅 Waktu</h3>
+                        <p>Sabtu, 1 Januari 2025<br>Jam 10.00 - 22.00 WIB<br>Resepsi: 12.00 WIB</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Timeline -->
+            <div class="slide" id="slide4">
+                <div class="slide-overlay"></div>
+                <div class="slide-content glass-card">
+                    <h2 class="section-title">Jadwal Acara</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot">1</div>
+                            <p><strong>08:00</strong> - Tamu Mulai Tiba</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">2</div>
+                            <p><strong>10:00</strong> - Akad Nikah</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">3</div>
+                            <p><strong>12:00</strong> - Resepsi Dimulai</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">4</div>
+                            <p><strong>22:00</strong> - Penutupan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Protokol Kesehatan -->
+            <div class="slide" id="slide5">
+                <div class="slide-overlay"></div>
+                <div class="slide-content glass-card">
+                    <h2 class="section-title">Informasi Penting</h2>
+                    <div class="info-box">
+                        <h3>✓ Protokol Kesehatan</h3>
+                        <ul>
+                            <li>📋 Silakan pakai masker jika merasa perlu</li>
+                            <li>💧 Hand sanitizer tersedia</li>
+                            <li>🚗 Parkir gratis tersedia</li>
+                        </ul>
+                    </div>
+                    <div class="info-box">
+                        <h3>💌 RSVP</h3>
+                        <p>Mohon konfirmasi sebelum 25 Desember 2024<br>
+                        <strong>WhatsApp:</strong> +62 812-3456-7890</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Galeri -->
+            <div class="slide" id="slide6">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2 class="section-title">Galeri Kami</h2>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        <div class="gallery-item" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                        <div class="gallery-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                        <div class="gallery-item" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Perjalanan Cinta -->
+            <div class="slide" id="slide7">
+                <div class="slide-overlay"></div>
+                <div class="slide-content glass-card">
+                    <h2 class="section-title">Perjalanan Cinta Kami</h2>
+                    <div class="story-box">
+                        <h4>2019 - Awal Pertemuan</h4>
+                        <p>Kami bertemu di event khusus yang mengubah hidup kami selamanya.</p>
+                    </div>
+                    <div class="story-box">
+                        <h4>2022 - Cinta Tumbuh</h4>
+                        <p>Seiring waktu, perasaan kami semakin dalam dan bermakna.</p>
+                    </div>
+                    <div class="story-box">
+                        <h4>2024 - Lamaran</h4>
+                        <p>Dia melamar dengan cara yang paling istimewa dan romantic.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Ucapan & Doa -->
+            <div class="slide" id="slide8">
+                <div class="slide-overlay"></div>
+                <div class="slide-content glass-card">
+                    <h2 class="section-title">Ucapan & Doa</h2>
+                    <p style="font-style: italic; font-size: 1.1rem; line-height: 1.8;">
+                        "Semoga pernikahan kami menjadi awal yang indah dari sebuah cerita panjang 
+                        yang penuh dengan cinta, pengertian, dan kebahagiaan."
+                    </p>
+                    <div class="divider"></div>
+                    <p>Terima kasih atas doa dan dukungan Anda</p>
+                </div>
+            </div>
+
+            <!-- Slide 9: Gift Registry -->
+            <div class="slide" id="slide9">
+                <div class="slide-overlay"></div>
+                <div class="slide-content glass-card">
+                    <h2 class="section-title">Hadiah Pernikahan</h2>
+                    <p>Kehadiran Anda adalah hadiah terbesar bagi kami.</p>
+                    <p style="margin-top: 1rem;">Jika ingin memberikan hadiah, Anda dapat mentransfer ke:</p>
+                    <div class="gift-box">
+                        <p><strong>Nama Pengantin</strong><br>Bank: BCA<br>Nomor Rekening: 123 456 789</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Photo Gallery Slide -->
+            <div class="slide" id="slide10">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2 class="section-title">Momen Spesial Kami</h2>
+                    <div class="large-photo" style="background: linear-gradient(135deg, #d4a574 0%, #8b4513 100%); height: 300px; border-radius: 15px; margin-top: 2rem;"></div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Penutup -->
+            <div class="slide" id="slide11">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2 class="main-title" style="font-size: 2.2rem;">Terima Kasih</h2>
+                    <p class="subtitle">Terima kasih telah menjadi bagian dari perjalanan hidup kami</p>
+                    <div class="divider"></div>
+                    <p class="couple-names">Nama Mempelai Pria & Nama Mempelai Wanita</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Kami tunggu kehadiran Anda 💕</p>
+                </div>
+            </div>
+
+            <!-- Slider Navigation -->
+            <div class="slider-nav">
+                <button id="prevBtn" class="nav-btn nav-back">← Back</button>
+                <span id="slideIndicator" class="slide-indicator">1 / 11</span>
+                <button id="nextBtn" class="nav-btn nav-next">Next →</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="premium.js"></script>
+</body>
+
+</html>
