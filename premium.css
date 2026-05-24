@@ -148,16 +148,29 @@ body {
     z-index: 5;
 }
 
-/* Fade-in animation for slide content */
-@keyframes fadeInEase {
+/* Fade-in animation for slide content (scrolling down) */
+@keyframes fadeInEaseDown {
     from {
         opacity: 0;
-        transform: translateY(24px);
+        translate: 0 40px;
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        translate: 0 0;
+    }
+}
+
+/* Fade-in animation for slide content (scrolling up) */
+@keyframes fadeInEaseUp {
+    from {
+        opacity: 0;
+        translate: 0 -40px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
     }
 }
 
@@ -165,8 +178,12 @@ body {
     opacity: 0;
 }
 
-.fade-content.animated {
-    animation: fadeInEase 1.6s ease forwards;
+.slide:not(.scroll-up) .fade-content.animated {
+    animation: fadeInEaseDown 1.6s ease forwards;
+}
+
+.slide.scroll-up .fade-content.animated {
+    animation: fadeInEaseUp 1.6s ease forwards;
 }
 
 /* 2D rotate around center axis for slide1 (surat) */
@@ -197,8 +214,12 @@ body {
 }
 
 /* When animated class is added to swing-img, run fade then swing continuously */
-.swing-img.animated {
-    animation: fadeInEase 1.6s ease forwards, gentleSwing 3s ease-in-out 1.6s infinite;
+.slide:not(.scroll-up) .swing-img.animated {
+    animation: fadeInEaseDown 1.6s ease forwards, gentleSwing 3s ease-in-out 1.6s infinite;
+}
+
+.slide.scroll-up .swing-img.animated {
+    animation: fadeInEaseUp 1.6s ease forwards, gentleSwing 3s ease-in-out 1.6s infinite;
 }
 
 /* ─── Maps Overlay Button (Slide 5) ───────────────────────── */
@@ -264,8 +285,8 @@ body {
 
 .btn-creative {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
+    bottom: 5px;
+    left: 23%;
     transform: translateX(-50%);
     background-color: #6D1427;
     color: var(--white);

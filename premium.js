@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── SLIDE TRANSITION (NATIVE SCROLL SNAP) ────────────────────
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
+    let lastSlideIndex = 0;
     let isPlaying = true; // audio state
 
     // ── Hide special buttons instantly ──
@@ -89,14 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const index = Array.from(slides).indexOf(entry.target);
                 if (index !== -1) {
+                    const scrollDir = index > lastSlideIndex ? 'down' : (index < lastSlideIndex ? 'up' : 'none');
                     currentSlide = index;
+                    lastSlideIndex = index;
 
                     // Toggle active class
                     slides.forEach((slide, i) => {
                         if (i === index) {
                             slide.classList.add('active');
+                            slide.classList.remove('scroll-up', 'scroll-down');
+                            if (scrollDir === 'down') slide.classList.add('scroll-down');
+                            if (scrollDir === 'up') slide.classList.add('scroll-up');
                         } else {
-                            slide.classList.remove('active');
+                            slide.classList.remove('active', 'scroll-up', 'scroll-down');
                         }
                     });
 
