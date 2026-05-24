@@ -160,8 +160,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ─── AUDIO PRELOADING LOGIC ───────────────────────────────────
+    openBtn.disabled = true;
+    openBtn.innerText = "Memuat...";
+    openBtn.style.opacity = "0.5";
+
+    function onAudioReady() {
+        openBtn.disabled = false;
+        openBtn.innerText = "Open Invitation";
+        openBtn.style.opacity = "1";
+        openBtn.style.cursor = "pointer";
+    }
+
+    if (bgAudio.readyState >= 3) {
+        onAudioReady();
+    } else {
+        bgAudio.addEventListener('canplaythrough', onAudioReady);
+        bgAudio.addEventListener('loadeddata', onAudioReady);
+        
+        // Fallback: if audio doesn't trigger events (e.g. some mobile browsers), enable button after 3 seconds anyway
+        setTimeout(onAudioReady, 3000);
+    }
+
     // ─── OPENING ANIMATION ────────────────────────────────────────
     openBtn.addEventListener('click', () => {
+        // Start from 15 seconds
+        try {
+            bgAudio.currentTime = 15;
+        } catch(e) {}
+        
+        // Loop back to 15s when the audio ends
+        bgAudio.addEventListener('ended', () => {
+            bgAudio.currentTime = 15;
+            bgAudio.play().catch(e => console.log('Audio loop play failed:', e));
+        });
+
         // iOS FIX: play() MUST be called synchronously inside user interaction,
         // before any setTimeout, otherwise Safari will block it.
         const playPromise = bgAudio.play();
