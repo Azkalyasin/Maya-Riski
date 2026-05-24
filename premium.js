@@ -81,8 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerOptions = {
         root: sliderContainer,
         rootMargin: '0px',
-        // Array of thresholds to track slide visibility continuously (every 5%)
-        threshold: Array.from({length: 21}, (_, i) => i / 20)
+        threshold: [0, 0.25, 0.5, 0.75, 1]
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -90,35 +89,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const index = Array.from(slides).indexOf(entry.target);
             const fadeEls = entry.target.querySelectorAll('.fade-content');
             
-            // Set active slide logic around 50%
+            // Set active slide logic
             if (entry.intersectionRatio >= 0.5) {
                 if (currentSlide !== index) {
                     currentSlide = index;
                     slides.forEach((slide, i) => {
-                        if (i === index) {
-                            slide.classList.add('active');
-                        } else {
-                            slide.classList.remove('active');
-                        }
+                        if (i === index) slide.classList.add('active');
+                        else slide.classList.remove('active');
                     });
-                    // Update special buttons
                     showSpecialButtonForSlide(index);
                 }
             }
 
-            // Animation logic based on scroll ratio
-            // Fade in when slide is mostly visible
-            if (entry.intersectionRatio >= 0.6) {
+            // Animation logic
+            if (entry.intersectionRatio >= 0.5) {
                 fadeEls.forEach(el => {
-                    el.classList.remove('animated-out');
-                    el.classList.add('animated');
+                    // Only animate in if not already animated
+                    if (!el.classList.contains('animated')) {
+                        el.classList.remove('animated-out');
+                        void el.offsetWidth; // force reflow to restart animation
+                        el.classList.add('animated');
+                        el.dataset.seen = 'true';
+                    }
                 });
             } 
-            // Fade out when slide starts leaving
-            else if (entry.intersectionRatio < 0.6) {
+            else if (entry.intersectionRatio < 0.5) {
                 fadeEls.forEach(el => {
-                    el.classList.remove('animated');
-                    el.classList.add('animated-out');
+                    // Only fade out if it was previously seen and currently animated
+                    if (el.classList.contains('animated') && el.dataset.seen === 'true') {
+                        el.classList.remove('animated');
+                        void el.offsetWidth; // force reflow
+                        el.classList.add('animated-out');
+                    }
                 });
             }
         });
