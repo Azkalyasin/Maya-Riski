@@ -264,8 +264,8 @@ body {
 
 .btn-creative {
     position: absolute;
-    bottom: 5px;
-    left: 23%;
+    bottom: calc(max(60px, env(safe-area-inset-bottom) + 30px));
+    left: 50%;
     transform: translateX(-50%);
     background-color: #6D1427;
     color: var(--white);
@@ -662,7 +662,7 @@ body {
 .btn-open-wrapper {
     /* Positioned independently below heart so it doesn't shift heart off-center */
     position: absolute;
-    top: calc(50% + 90px);
+    top: calc(50% + 140px);
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
@@ -796,11 +796,13 @@ body {
     margin-top: 5px;
 }
 
-.account-number {
+.account-number, .account-number a {
     font-family: var(--font-body);
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 2px;
+    color: var(--white) !important;
+    text-decoration: none !important;
 }
 
 .btn-copy {
