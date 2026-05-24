@@ -782,18 +782,24 @@ body {
 }
 
 .account-box {
-    background: #5C3920;
-    /* Dark Red / Maroon */
-    border: 2px solid var(--gold);
-    color: var(--white);
-    border-radius: 30px;
-    padding: 8px 15px 8px 25px;
+    position: relative;
+    width: 320px;
+    max-width: 90vw;
+    height: 60px;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    min-width: 280px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    padding: 0 35px 0 35px;
     margin-top: 5px;
+    background-color: transparent;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 320 60"><defs><linearGradient id="s" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="%23EAEAEA"/><stop offset="50%" stop-color="%23FFFFFF"/><stop offset="100%" stop-color="%23999999"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="%237D3B3B"/><stop offset="30%" stop-color="%235C2525"/><stop offset="100%" stop-color="%233A1212"/></linearGradient></defs><path d="M 35 3 L 285 3 C 295 3 298 9 303 16 L 311 26 C 313 28 313 32 311 34 L 303 44 C 298 51 295 57 285 57 L 35 57 C 25 57 22 51 17 44 L 9 34 C 7 32 7 28 9 26 L 17 16 C 22 9 25 3 35 3 Z" fill="url(#b)" stroke="url(#s)" stroke-width="2.5"/></svg>');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 0;
+    color: var(--white);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
 }
 
 .account-number {
