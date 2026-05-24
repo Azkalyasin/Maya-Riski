@@ -110,21 +110,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fade in when slide is mostly visible
             if (entry.intersectionRatio >= 0.6) {
                 fadeEls.forEach(el => {
-                    if (!el.classList.contains('animated')) {
-                        el.classList.remove('animated-out');
-                        void el.offsetWidth; // trigger reflow
-                        el.classList.add('animated');
-                    }
+                    el.classList.remove('animated-out');
+                    el.classList.add('animated');
                 });
             } 
             // Fade out when slide starts leaving
             else if (entry.intersectionRatio < 0.6) {
                 fadeEls.forEach(el => {
-                    if (el.classList.contains('animated')) {
-                        el.classList.remove('animated');
-                        void el.offsetWidth;
-                        el.classList.add('animated-out');
-                    }
+                    el.classList.remove('animated');
+                    el.classList.add('animated-out');
                 });
             }
         });
