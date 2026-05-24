@@ -265,7 +265,7 @@ body {
 .btn-creative {
     position: absolute;
     bottom: calc(max(60px, env(safe-area-inset-bottom) + 30px));
-    left: 50%;
+    left: 22%;
     transform: translateX(-50%);
     background-color: #6D1427;
     color: var(--white);
@@ -796,7 +796,8 @@ body {
     margin-top: 5px;
 }
 
-.account-number, .account-number a {
+.account-number,
+.account-number a {
     font-family: var(--font-body);
     font-size: 1.1rem;
     font-weight: 600;
