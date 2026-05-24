@@ -106,12 +106,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     // ─── Replay fade-in animation ──────────────────────
                     const fadeEls = entry.target.querySelectorAll('.fade-content');
                     fadeEls.forEach(el => {
+                        // Remove out animation if present
+                        el.classList.remove('animated-out');
                         // Remove class, force reflow, add back to replay animation
                         el.classList.remove('animated');
                         void el.offsetWidth; // trigger reflow
                         el.classList.add('animated');
                     });
                 }
+            } else {
+                // ─── Play fade-out animation ──────────────────────
+                const fadeEls = entry.target.querySelectorAll('.fade-content');
+                fadeEls.forEach(el => {
+                    // Only apply fade-out if it was previously faded in
+                    if (el.classList.contains('animated')) {
+                        el.classList.remove('animated');
+                        void el.offsetWidth;
+                        el.classList.add('animated-out');
+                    }
+                });
             }
         });
     }, observerOptions);

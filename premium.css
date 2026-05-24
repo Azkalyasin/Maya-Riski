@@ -169,6 +169,22 @@ body {
     animation: fadeInEase 1.6s ease forwards;
 }
 
+@keyframes fadeOutEase {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-24px);
+    }
+}
+
+.fade-content.animated-out {
+    animation: fadeOutEase 0.8s ease forwards;
+}
+
 /* 2D rotate around center axis for slide1 (surat) */
 @keyframes gentleSwing {
     0% {
@@ -243,7 +259,7 @@ body {
 
 .countdown-wrapper {
     position: absolute;
-    bottom: calc(68% + 1px);
+    bottom: calc(65% + 1px);
     left: 13%;
     transform: translateX(-50%);
     z-index: 10;
