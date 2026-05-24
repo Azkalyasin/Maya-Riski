@@ -18,7 +18,7 @@
 }
 
 body {
-    background-color: #FEFBE6;
+    background-color: #6D1427;
     color: var(--deep-navy);
     font-family: var(--font-body);
     overflow: hidden;
@@ -215,7 +215,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 0.65rem 1.8rem;
-    background: #7C4F2A;
+    background: #5C3920;
     color: white;
     font-family: var(--font-body);
     font-weight: bold;
@@ -243,8 +243,8 @@ body {
 
 .countdown-wrapper {
     position: absolute;
-    bottom: calc(60% + 4px);
-    left: 14%;
+    bottom: calc(68% + 1px);
+    left: 13%;
     transform: translateX(-50%);
     z-index: 10;
     text-align: center;
@@ -260,6 +260,32 @@ body {
     border-radius: 16px;
     padding: 14px 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-creative {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #6D1427;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    border: 2px solid var(--gold);
+    border-radius: 30px;
+    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-creative:hover {
+    transform: translateX(-50%) translateY(-2px);
+    background-color: #500f1c;
 }
 
 .countdown-item {
@@ -756,7 +782,7 @@ body {
 }
 
 .account-box {
-    background: #6D1427;
+    background: #5C3920;
     /* Dark Red / Maroon */
     border: 2px solid var(--gold);
     color: var(--white);
@@ -778,8 +804,8 @@ body {
 }
 
 .btn-copy {
-    background: var(--gold);
-    color: #6D1427;
+    background: #641805;
+    color: var(--silver);
     border: none;
     font-family: var(--font-body);
     font-size: 0.9rem;
