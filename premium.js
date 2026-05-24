@@ -81,17 +81,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerOptions = {
         root: sliderContainer,
         rootMargin: '0px',
-        threshold: 0.5 // trigger when 50% of the slide is visible
+        // Array of thresholds to track slide visibility continuously (every 5%)
+        threshold: Array.from({length: 21}, (_, i) => i / 20)
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const index = Array.from(slides).indexOf(entry.target);
-                if (index !== -1) {
+            const index = Array.from(slides).indexOf(entry.target);
+            const fadeEls = entry.target.querySelectorAll('.fade-content');
+            
+            // Set active slide logic around 50%
+            if (entry.intersectionRatio >= 0.5) {
+                if (currentSlide !== index) {
                     currentSlide = index;
-
-                    // Toggle active class
                     slides.forEach((slide, i) => {
                         if (i === index) {
                             slide.classList.add('active');
@@ -99,26 +101,25 @@ document.addEventListener('DOMContentLoaded', () => {
                             slide.classList.remove('active');
                         }
                     });
-
                     // Update special buttons
                     showSpecialButtonForSlide(index);
+                }
+            }
 
-                    // ─── Replay fade-in animation ──────────────────────
-                    const fadeEls = entry.target.querySelectorAll('.fade-content');
-                    fadeEls.forEach(el => {
-                        // Remove out animation if present
+            // Animation logic based on scroll ratio
+            // Fade in when slide is mostly visible
+            if (entry.intersectionRatio >= 0.6) {
+                fadeEls.forEach(el => {
+                    if (!el.classList.contains('animated')) {
                         el.classList.remove('animated-out');
-                        // Remove class, force reflow, add back to replay animation
-                        el.classList.remove('animated');
                         void el.offsetWidth; // trigger reflow
                         el.classList.add('animated');
-                    });
-                }
-            } else {
-                // ─── Play fade-out animation ──────────────────────
-                const fadeEls = entry.target.querySelectorAll('.fade-content');
+                    }
+                });
+            } 
+            // Fade out when slide starts leaving
+            else if (entry.intersectionRatio < 0.6) {
                 fadeEls.forEach(el => {
-                    // Only apply fade-out if it was previously faded in
                     if (el.classList.contains('animated')) {
                         el.classList.remove('animated');
                         void el.offsetWidth;
