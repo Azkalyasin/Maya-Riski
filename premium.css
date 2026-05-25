@@ -240,7 +240,7 @@ body {
 
 .countdown-wrapper {
     position: absolute;
-    bottom: calc(65% + 1px);
+    bottom: calc(72% + 1px);
     left: 13%;
     transform: translateX(-50%);
     z-index: 10;
