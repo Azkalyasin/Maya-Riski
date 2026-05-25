@@ -243,12 +243,13 @@ body {
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: #1A362B; /* Hijau gelap menyesuaikan tema background */
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Tambahan border tipis agar lebih elegan */
     border-radius: 50%;
-    box-shadow: 0 4px 14px rgba(188, 24, 136, 0.4);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     z-index: 10;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 /* Top button – sejajar area pink atas (kanan nama Maya) */
@@ -266,8 +267,9 @@ body {
 }
 
 .insta-overlay-btn:hover {
-    transform: translate(-50%, calc(-50% - 3px));
-    box-shadow: 0 6px 20px rgba(188, 24, 136, 0.55);
+    transform: translate(-50%, -50%); /* Menghilangkan efek geser saat dipencet */
+    background-color: #12281e;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
 }
 
 .insta-overlay-btn svg {
