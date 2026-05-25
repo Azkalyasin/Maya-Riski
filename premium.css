@@ -228,7 +228,6 @@ body {
 
 .maps-overlay-btn:hover {
     background: #5C3920;
-    transform: translate(-50%, calc(-50% - 2px));
 }
 
 /* ─── Instagram Overlay Buttons (Slide 2 - Couple) ─────────── */
@@ -267,7 +266,6 @@ body {
 }
 
 .insta-overlay-btn:hover {
-    transform: translate(-50%, -50%); /* Menghilangkan efek geser saat dipencet */
     background-color: #12281e;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
 }
@@ -424,7 +422,6 @@ body {
 .nav-btn:active {
     background: var(--sage-green);
     color: white;
-    transform: scale(0.93);
     box-shadow: 0 2px 8px rgba(178, 172, 136, 0.4);
 }
 
@@ -468,7 +465,6 @@ body {
 .maps-btn:hover {
     background: #5C3920;
     box-shadow: 0 4px 15px rgba(92, 57, 32, 0.4);
-    transform: translateY(-2px);
 }
 
 /* Creative Instagram Button (last slide only) */
@@ -501,7 +497,7 @@ body {
 }
 
 .btn-creative:hover {
-    transform: scale(var(--btn-scale)) translateY(-0.125rem);
+    transform: scale(var(--btn-scale));
     background: #5C3920;
     box-shadow: 0 4px 15px rgba(92, 57, 32, 0.4);
 }
@@ -545,7 +541,6 @@ body {
 .music-btn:hover {
     background: #500f1c;
     color: var(--white);
-    transform: scale(1.1);
     box-shadow: 0 4px 16px rgba(109, 20, 39, 0.4);
 }
 
@@ -652,7 +647,6 @@ body {
     background: var(--gold);
     color: var(--deep-navy);
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-    transform: translateY(-3px);
 }
 
 /* Opening Screen */
@@ -734,7 +728,6 @@ body {
     background: #500f1c;
     color: var(--gold);
     box-shadow: 0 0 25px rgba(109, 20, 39, 0.5);
-    transform: translateY(-3px);
 }
 
 .btn-open.hide {
@@ -865,7 +858,6 @@ body {
 
 .btn-copy:hover {
     background: var(--gold-light);
-    transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
