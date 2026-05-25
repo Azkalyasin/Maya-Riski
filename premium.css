@@ -231,6 +231,50 @@ body {
     transform: translate(-50%, calc(-50% - 2px));
 }
 
+/* ─── Instagram Overlay Buttons (Slide 2 - Couple) ─────────── */
+.slide-couple {
+    position: relative;
+}
+
+.insta-overlay-btn {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 14px rgba(188, 24, 136, 0.4);
+    z-index: 10;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Top button – sejajar area pink atas (kanan nama Maya) */
+.insta-top {
+    top: 42%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+/* Bottom button – area pink bawah (bawah nama Risqi) */
+.insta-bottom {
+    top: 73%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+}
+
+.insta-overlay-btn:hover {
+    transform: translate(-50%, calc(-50% - 3px));
+    box-shadow: 0 6px 20px rgba(188, 24, 136, 0.55);
+}
+
+.insta-overlay-btn svg {
+    flex-shrink: 0;
+}
+
+
 /* ─── Countdown Timer (Last Slide) ───────────────────────── */
 .slide-countdown-slide {
     flex-direction: column;
